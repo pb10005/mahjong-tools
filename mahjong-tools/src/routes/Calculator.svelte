@@ -173,7 +173,7 @@
 				</button>
 			{/if}
 			{#if switcher}
-				<div class="h1" in:fly={flyInOption} out:fly={flyOutOption}>
+				<div class="h1 center" in:fly={flyInOption} out:fly={flyOutOption}>
 					<strong>{fu}符{yaku}飜</strong>
 					<strong>{score}</strong>
 				</div>
@@ -235,5 +235,8 @@
 	}
 	.gap-1 {
 		gap: 1em;
+	}
+	.center {
+		margin: auto;
 	}
 </style>
