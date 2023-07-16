@@ -4,7 +4,7 @@
 	import './styles.css';
 	import { AppShell } from '@skeletonlabs/skeleton';
 	// Your selected Skeleton theme:
-	import '@skeletonlabs/skeleton/themes/theme-rocket.css';
+	import '@skeletonlabs/skeleton/themes/theme-modern.css';
 
 	// This contains the bulk of Skeletons required styles:
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
