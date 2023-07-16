@@ -20,13 +20,6 @@
 			<Header />
 		</svelte:fragment>
 
-		<svelte:fragment slot="sidebarLeft">
-			<ul>
-				<li>点数計算</li>
-				<li>オーラス条件確認</li>
-			</ul>
-		</svelte:fragment>
-
 		<slot />
 	
 		<svelte:fragment slot="pageFooter">
