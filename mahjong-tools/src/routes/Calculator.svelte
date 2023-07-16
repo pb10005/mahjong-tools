@@ -96,7 +96,6 @@
 	const clearInput = () => {
 		fu = 20;
 		yaku = 1;
-		isOya = true;
 		isTsumo = true;
 		isYakuman = false;
 		selectedBase = '';
@@ -225,8 +224,18 @@
 				<div>
 					<button class="btn variant-ghost-tertiary" on:click={clearInput}>クリア</button>
 				</div>
+
 			</div>
 		{/if}
+		<div class="shadow rounded variant-filled-primary mt-2 p-2">
+			<p class="text-lg font-bold">点数計算の流れ</p>
+			<ul class="p-2">
+				<li>親ですか</li>
+				<li>ピンフですか→ピンフのみ(ツモ20符2飜、ロン30符1飜)の点数を覚えておく</li>
+				<li>七対子ですか→七対子のみ(ツモ25符3飜、ロン25符2飜)の点数を覚えておく</li>
+				<li>ツモですか→ツモのみ30符、鳴き1飜役のみ30符、面前ロン1飜役のみ40符の点数を覚えておく</li>
+			</ul>
+		</div>
 	</div>
 </div>
 
