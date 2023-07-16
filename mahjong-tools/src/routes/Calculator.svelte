@@ -119,7 +119,7 @@
 			<SlideToggle name="oya" type="checkbox" size="sm" bind:checked={isOya}>親</SlideToggle>
 		</div>
 		{#if !selectedBase}
-			<div class="btn-group-vertical variant-soft-primary w-full">
+			<div class="btn-group-vertical variant-ghost-primary w-full">
 				<button on:click={() => onSelectBase('pt')}>ピンフツモ</button>
 				<button on:click={() => onSelectBase('pr')}>ピンフロン</button>
 				<button on:click={() => onSelectBase('ctt')}>七対子ツモ</button>
