@@ -103,9 +103,9 @@
 </script>
 
 <div class="grid md:grid-cols-12 w-full">
-	<div class="md:col-span-8 md:col-start-3">
+	<div class="md:col-span-8 md:col-start-3 space-y-2">
 		<h2 class="h2">点数計算</h2>
-		<div>
+		<div class="card p-4">
 			<h3 class="h3">ルール</h3>
 			<SlideToggle name="roundUp" type="checkbox" size="sm" bind:checked={isRoundUp}
 				>切り上げ満貫</SlideToggle
@@ -114,120 +114,125 @@
 				>数え役満あり</SlideToggle
 			>
 		</div>
-		<h3 class="h3">役を入力</h3>
-		<div>
-			<SlideToggle name="oya" type="checkbox" size="sm" bind:checked={isOya}>親</SlideToggle>
-		</div>
-		{#if !selectedBase}
-			<div class="btn-group-vertical variant-ghost-primary w-full">
-				<button on:click={() => onSelectBase('pt')}>ピンフツモ</button>
-				<button on:click={() => onSelectBase('pr')}>ピンフロン</button>
-				<button on:click={() => onSelectBase('ctt')}>七対子ツモ</button>
-				<button on:click={() => onSelectBase('ctr')}>七対子ロン</button>
-				<button on:click={() => onSelectBase('ot')}>その他ツモ</button>
-				<button on:click={() => onSelectBase('omr')}>その他ロン(門前)</button>
-				<button on:click={() => onSelectBase('onr')}>その他ロン(鳴き)</button>
-				<button on:click={() => onSelectBase('ymt')}>役満ツモ</button>
-				<button on:click={() => onSelectBase('ymr')}>役満ロン</button>
+		<div class="card p-4">
+			<h3 class="h3">役を入力</h3>
+			<div>
+				<SlideToggle name="oya" type="checkbox" size="sm" bind:checked={isOya}>親</SlideToggle>
 			</div>
-		{/if}
-		{#if selectedBase}
-			<div>{agari}</div>
-			<div class="grid gap-1">
-				<div>
-					<button
-						class="btn variant-ghost-secondary w-full"
-						on:click={() => {
-							flyInOption.x = 0;
-							flyInOption.y = -50;
-							flyOutOption.x = 0;
-							flyOutOption.y = 50;
-							switcher = false;
-							setTimeout(() => {
-								yaku += 1;
-								switcher = true;
-							}, 300);
-						}}
-						aria-label="Increase the counter by one"
-					>
-						飜+
-					</button>
+			{#if !selectedBase}
+				<div class="btn-group-vertical variant-ghost-primary w-full">
+					<button on:click={() => onSelectBase('pt')}>ピンフツモ</button>
+					<button on:click={() => onSelectBase('pr')}>ピンフロン</button>
+					<button on:click={() => onSelectBase('ctt')}>七対子ツモ</button>
+					<button on:click={() => onSelectBase('ctr')}>七対子ロン</button>
+					<button on:click={() => onSelectBase('ot')}>その他ツモ</button>
+					<button on:click={() => onSelectBase('omr')}>その他ロン(門前)</button>
+					<button on:click={() => onSelectBase('onr')}>その他ロン(鳴き)</button>
+					<button on:click={() => onSelectBase('ymt')}>役満ツモ</button>
+					<button on:click={() => onSelectBase('ymr')}>役満ロン</button>
 				</div>
-
-				<div class="flex">
-					{#if !isFuFixed}
+			{/if}
+			{#if selectedBase}
+				<div>{agari}</div>
+				<div class="grid gap-1">
+					<div>
 						<button
-							class="btn variant-ghost-secondary"
+							class="btn variant-ghost-secondary w-full"
 							on:click={() => {
-								flyInOption.x = -50;
-								flyInOption.y = 0;
-								flyOutOption.x = 50;
-								flyOutOption.y = 0;
+								flyInOption.x = 0;
+								flyInOption.y = -50;
+								flyOutOption.x = 0;
+								flyOutOption.y = 50;
 								switcher = false;
 								setTimeout(() => {
-									fu = Math.max(20, fu - 10);
-									switcher = true;
-								}, 300);
-							}}
-							aria-label="Decrease the counter by one"
-						>
-							符-
-						</button>
-					{/if}
-					{#if switcher}
-						<div class="text-2xl font-extrabold center" in:fly={flyInOption} out:fly={flyOutOption}>
-							<strong>{fu}符{yaku}飜</strong>
-							<strong>{score}</strong>
-						</div>
-					{/if}
-					{#if !isFuFixed}
-						<button
-							class="btn variant-ghost-secondary"
-							on:click={() => {
-								flyInOption.x = 50;
-								flyInOption.y = 0;
-								flyOutOption.x = -50;
-								flyOutOption.y = 0;
-								switcher = false;
-								setTimeout(() => {
-									fu = Math.min(110, fu + 10);
+									yaku += 1;
 									switcher = true;
 								}, 300);
 							}}
 							aria-label="Increase the counter by one"
 						>
-							符+
+							飜+
 						</button>
-					{/if}
-				</div>
+					</div>
 
-				<div>
-					<button
-						class="btn variant-ghost-secondary w-full"
-						on:click={() => {
-							flyInOption.x = 0;
-							flyInOption.y = 50;
-							flyOutOption.x = 0;
-							flyOutOption.y = -50;
-							switcher = false;
-							setTimeout(() => {
-								yaku = Math.max(1, yaku - 1);
-								switcher = true;
-							}, 300);
-						}}
-						aria-label="Decrease the counter by one"
-					>
-						飜-
-					</button>
-				</div>
+					<div class="flex">
+						{#if !isFuFixed}
+							<button
+								class="btn variant-ghost-secondary"
+								on:click={() => {
+									flyInOption.x = -50;
+									flyInOption.y = 0;
+									flyOutOption.x = 50;
+									flyOutOption.y = 0;
+									switcher = false;
+									setTimeout(() => {
+										fu = Math.max(20, fu - 10);
+										switcher = true;
+									}, 300);
+								}}
+								aria-label="Decrease the counter by one"
+							>
+								符-
+							</button>
+						{/if}
+						{#if switcher}
+							<div
+								class="text-2xl font-extrabold center"
+								in:fly={flyInOption}
+								out:fly={flyOutOption}
+							>
+								<strong>{fu}符{yaku}飜</strong>
+								<strong>{score}</strong>
+							</div>
+						{/if}
+						{#if !isFuFixed}
+							<button
+								class="btn variant-ghost-secondary"
+								on:click={() => {
+									flyInOption.x = 50;
+									flyInOption.y = 0;
+									flyOutOption.x = -50;
+									flyOutOption.y = 0;
+									switcher = false;
+									setTimeout(() => {
+										fu = Math.min(110, fu + 10);
+										switcher = true;
+									}, 300);
+								}}
+								aria-label="Increase the counter by one"
+							>
+								符+
+							</button>
+						{/if}
+					</div>
 
-				<div>
-					<button class="btn variant-ghost-tertiary" on:click={clearInput}>クリア</button>
-				</div>
+					<div>
+						<button
+							class="btn variant-ghost-secondary w-full"
+							on:click={() => {
+								flyInOption.x = 0;
+								flyInOption.y = 50;
+								flyOutOption.x = 0;
+								flyOutOption.y = -50;
+								switcher = false;
+								setTimeout(() => {
+									yaku = Math.max(1, yaku - 1);
+									switcher = true;
+								}, 300);
+							}}
+							aria-label="Decrease the counter by one"
+						>
+							飜-
+						</button>
+					</div>
 
-			</div>
-		{/if}
-		<div class="shadow rounded variant-filled-primary mt-2 p-2">
+					<div>
+						<button class="btn variant-ghost-tertiary" on:click={clearInput}>クリア</button>
+					</div>
+				</div>
+			{/if}
+		</div>
+		<div class="card rounded-xl variant-ringed-primary mt-2 p-2">
 			<p class="text-lg font-bold">点数計算の流れ</p>
 			<ul class="p-2">
 				<li>親ですか</li>
