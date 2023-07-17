@@ -29,7 +29,11 @@
 		return tmpTop;
 	};
 
-	const calculateTsumoCondition = (isOya: boolean, selfName: string) => {
+	const calculateTsumoCondition = (
+		isOya: boolean,
+		selfName: string,
+		points: { [key: string]: number }
+	) => {
 		if (isOya) {
 			if (simulateTsumo(isOya, points, selfName, homba, 0, 500) === selfName)
 				return 'アガリ(500オール)';
@@ -114,6 +118,11 @@
 
 	$: sharedPoints = 100000 - points.east - points.south - points.west - points.north;
 	$: currentTop = nameMap[calculateCurrentTop(points)];
+
+	$: eastCondition = calculateTsumoCondition(true, 'east', points);
+	$: southCondition = calculateTsumoCondition(false, 'south', points);
+	$: westCondition = calculateTsumoCondition(false, 'west', points);
+	$: northCondition = calculateTsumoCondition(false, 'north', points);
 </script>
 
 <div class="grid md:grid-cols-12 w-full">
@@ -160,38 +169,23 @@
 			<p>現在のトップ: {currentTop}</p>
 		</div>
 		<div class="card p-4">
-			<p>東家のトップ条件</p>
-			<button
-				class="btn variant-ghost-primary"
-				on:click={() => {
-					alert(JSON.stringify(calculateTsumoCondition(true, 'east')));
-				}}>計算</button
-			>
-			<p>南家のトップ条件</p>
-			<button
-				class="btn variant-ghost-primary"
-				on:click={() => {
-					alert(JSON.stringify(calculateTsumoCondition(false, 'south')));
-				}}>計算</button
-			>
-			<p>西家のトップ条件</p>
-			<button
-				class="btn variant-ghost-primary"
-				on:click={() => {
-					alert(JSON.stringify(calculateTsumoCondition(false, 'west')));
-				}}
-			>
-				計算
-			</button>
-			<p>北家のトップ条件</p>
-			<button
-				class="btn variant-ghost-primary"
-				on:click={() => {
-					alert(JSON.stringify(calculateTsumoCondition(false, 'north')));
-				}}
-			>
-				計算
-			</button>
+			<h3 class="h3">ツモ条件</h3>
+			<p>
+				東家のトップ条件:
+				{eastCondition}
+			</p>
+			<p>
+				南家のトップ条件:
+				{southCondition}
+			</p>
+			<p>
+				西家のトップ条件:
+				{westCondition}
+			</p>
+			<p>
+				北家のトップ条件:
+				{northCondition}
+			</p>
 		</div>
 	</div>
 </div>
