@@ -135,25 +135,27 @@
 			{#if selectedBase}
 				<div>{agari}</div>
 				<div class="grid gap-1">
-					<div>
-						<button
-							class="btn variant-ghost-secondary w-full"
-							on:click={() => {
-								flyInOption.x = 0;
-								flyInOption.y = -50;
-								flyOutOption.x = 0;
-								flyOutOption.y = 50;
-								switcher = false;
-								setTimeout(() => {
-									yaku += 1;
-									switcher = true;
-								}, 300);
-							}}
-							aria-label="Increase the counter by one"
-						>
-							飜+
-						</button>
-					</div>
+					{#if !isYakuman}
+						<div>
+							<button
+								class="btn variant-ghost-secondary w-full"
+								on:click={() => {
+									flyInOption.x = 0;
+									flyInOption.y = -50;
+									flyOutOption.x = 0;
+									flyOutOption.y = 50;
+									switcher = false;
+									setTimeout(() => {
+										yaku += 1;
+										switcher = true;
+									}, 300);
+								}}
+								aria-label="Increase the counter by one"
+							>
+								飜+
+							</button>
+						</div>
+					{/if}
 
 					<div class="flex">
 						{#if !isFuFixed}
@@ -181,7 +183,9 @@
 								in:fly={flyInOption}
 								out:fly={flyOutOption}
 							>
-								<strong>{fu}符{yaku}飜</strong>
+								<strong
+									>{#if !isYakuman}<span>{fu}符</span>{/if}<span>{yaku}飜</span></strong
+								>
 								<strong>{score}</strong>
 							</div>
 						{/if}
@@ -206,25 +210,27 @@
 						{/if}
 					</div>
 
-					<div>
-						<button
-							class="btn variant-ghost-secondary w-full"
-							on:click={() => {
-								flyInOption.x = 0;
-								flyInOption.y = 50;
-								flyOutOption.x = 0;
-								flyOutOption.y = -50;
-								switcher = false;
-								setTimeout(() => {
-									yaku = Math.max(1, yaku - 1);
-									switcher = true;
-								}, 300);
-							}}
-							aria-label="Decrease the counter by one"
-						>
-							飜-
-						</button>
-					</div>
+					{#if !isYakuman}
+						<div>
+							<button
+								class="btn variant-ghost-secondary w-full"
+								on:click={() => {
+									flyInOption.x = 0;
+									flyInOption.y = 50;
+									flyOutOption.x = 0;
+									flyOutOption.y = -50;
+									switcher = false;
+									setTimeout(() => {
+										yaku = Math.max(1, yaku - 1);
+										switcher = true;
+									}, 300);
+								}}
+								aria-label="Decrease the counter by one"
+							>
+								飜-
+							</button>
+						</div>
+					{/if}
 
 					<div>
 						<button class="btn variant-ghost-tertiary" on:click={clearInput}>クリア</button>
@@ -232,9 +238,9 @@
 				</div>
 			{/if}
 		</div>
-		<div class="card rounded-xl variant-ringed-primary mt-2 p-2">
+		<div class="card p-4">
 			<p class="text-lg font-bold">点数計算の流れ</p>
-			<ul class="p-2">
+			<ul class="variant-ringed-primary rounded p-2">
 				<li>親ですか</li>
 				<li>ピンフですか→ピンフのみ(ツモ20符2飜、ロン30符1飜)の点数を覚えておく</li>
 				<li>七対子ですか→七対子のみ(ツモ25符3飜、ロン25符2飜)の点数を覚えておく</li>
