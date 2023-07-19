@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { SlideToggle } from '@skeletonlabs/skeleton';
+	import { calculateCurrentTop, calculateTsumoCondition } from '$lib/condition';
+
 	let isHanchan = true;
 	let continuePoint = 30000;
 
 	let homba = 0;
-	let sharedPoints = 0;
+	let sharedPoint = 0;
 	let points: { [key: string]: number } = {
 		east: 25000,
 		south: 25000,
@@ -19,89 +21,6 @@
 		north: '北家'
 	};
 
-	const calculateCurrentTop = (points: { [key: string]: number }) => {
-		let tmpTop = 'east';
-		for (const key in points) {
-			if (points[tmpTop] < points[key]) {
-				tmpTop = key;
-			}
-		}
-		return tmpTop;
-	};
-
-	const calculateTsumoCondition = (
-		isOya: boolean,
-		selfName: string,
-		points: { [key: string]: number }
-	) => {
-		if (isOya) {
-			if (simulateTsumo(isOya, points, selfName, homba, 0, 500) === selfName)
-				return 'アガリ(500オール)';
-			if (simulateTsumo(isOya, points, selfName, homba, 0, 700) === selfName)
-				return 'ピンフツモ(700オール)';
-			if (simulateTsumo(isOya, points, selfName, homba, 0, 1000) === selfName)
-				return '2飜(1000オール)';
-			if (simulateTsumo(isOya, points, selfName, homba, 0, 2000) === selfName)
-				return '3飜(2000オール)';
-			if (simulateTsumo(isOya, points, selfName, homba, 0, 4000) === selfName)
-				return '満貫(4000オール)';
-			if (simulateTsumo(isOya, points, selfName, homba, 0, 6000) === selfName)
-				return '跳満(6000オール)';
-			if (simulateTsumo(isOya, points, selfName, homba, 0, 8000) === selfName)
-				return '倍満(8000オール)';
-			if (simulateTsumo(isOya, points, selfName, homba, 0, 12000) === selfName)
-				return '三倍満(12000オール)';
-			if (simulateTsumo(isOya, points, selfName, homba, 0, 16000) === selfName)
-				return '役満(16000オール)';
-
-			return '目無し';
-		} else {
-			if (simulateTsumo(isOya, points, selfName, homba, 500, 300) === selfName)
-				return 'アガリ(300-500)';
-			if (simulateTsumo(isOya, points, selfName, homba, 1000, 500) === selfName)
-				return '2飜(500-1000)';
-			if (simulateTsumo(isOya, points, selfName, homba, 2000, 1000) === selfName)
-				return '3飜(1000-2000)';
-			if (simulateTsumo(isOya, points, selfName, homba, 4000, 2000) === selfName)
-				return '満貫(2000-4000)';
-			if (simulateTsumo(isOya, points, selfName, homba, 6000, 3000) === selfName)
-				return '跳満(3000-6000)';
-			if (simulateTsumo(isOya, points, selfName, homba, 8000, 4000) === selfName)
-				return '倍満(4000-8000)';
-			if (simulateTsumo(isOya, points, selfName, homba, 12000, 6000) === selfName)
-				return '三倍満(6000-12000)';
-			if (simulateTsumo(isOya, points, selfName, homba, 16000, 8000) === selfName)
-				return '役満(8000-16000)';
-			return '目無し';
-		}
-	};
-
-	const simulateTsumo = (
-		isOya: boolean,
-		points: { [key: string]: number },
-		selfName: string,
-		homba: number,
-		oyaPoint: number,
-		koPoint: number
-	) => {
-		let tmpPoints = Object.assign({}, points);
-
-		if (isOya) {
-			for (const key in tmpPoints) {
-				if (key === selfName)
-					tmpPoints[key] = points[key] + 3 * koPoint + 100 * homba + sharedPoints;
-				else tmpPoints[key] = points[key] - koPoint - 100 * homba;
-			}
-		} else {
-			for (const key in tmpPoints) {
-				if (key === selfName)
-					tmpPoints[key] = points[key] + oyaPoint + 2 * koPoint + 100 * homba + sharedPoints;
-				else if (key === 'east') tmpPoints[key] = points[key] - oyaPoint - 100 * homba;
-				else tmpPoints[key] = points[key] - koPoint - 100 * homba;
-			}
-		}
-		return calculateCurrentTop(tmpPoints);
-	};
 
 	const calculateRonCondition = (isOya: boolean) => {
 		/*
@@ -116,13 +35,13 @@
 		*/
 	};
 
-	$: sharedPoints = 100000 - points.east - points.south - points.west - points.north;
-	$: currentTop = nameMap[calculateCurrentTop(points)];
+	$: sharedPoint = 100000 - points.east - points.south - points.west - points.north;
+	$: currentTop = nameMap[calculateCurrentTop(points, continuePoint).name];
 
-	$: eastCondition = calculateTsumoCondition(true, 'east', points);
-	$: southCondition = calculateTsumoCondition(false, 'south', points);
-	$: westCondition = calculateTsumoCondition(false, 'west', points);
-	$: northCondition = calculateTsumoCondition(false, 'north', points);
+	$: eastCondition = calculateTsumoCondition(true, 'east', points, continuePoint, sharedPoint, homba);
+	$: southCondition = calculateTsumoCondition(false, 'south', points, continuePoint, sharedPoint, homba);
+	$: westCondition = calculateTsumoCondition(false, 'west', points, continuePoint, sharedPoint, homba);
+	$: northCondition = calculateTsumoCondition(false, 'north', points, continuePoint, sharedPoint, homba);
 </script>
 
 <div class="grid md:grid-cols-12 w-full">
@@ -144,11 +63,11 @@
 			</div>
 			<label class="label">
 				<span>本場</span>
-				<input class="input" type="number" placeholder="本場" bind:value={homba} />
+				<input class="input" type="number" placeholder="本場" min="0" bind:value={homba} />
 			</label>
 			<label class="label">
 				<span>供託</span>
-				<input class="input" type="number" placeholder="供託" bind:value={sharedPoints} disabled />
+				<input class="input" type="number" placeholder="供託" bind:value={sharedPoint} disabled />
 			</label>
 			<label class="label">
 				<span>東家</span>
