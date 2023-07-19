@@ -4,9 +4,9 @@ type CurrentTopPlayer = {
 };
 
 export const calculateCurrentTop = (points: { [key: string]: number }, continuePoint: number) => {
-    let tmpTop = 'east';
-    let point = points['east'];
-    for (const key in points) {
+    let tmpTop = 'south';
+    let point = points['south'];
+    for (const key of ['south', 'west', 'north', 'east']) {
         if (points[tmpTop] < points[key]) {
             tmpTop = key;
             point = points[key];
