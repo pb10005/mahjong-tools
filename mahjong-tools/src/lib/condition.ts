@@ -3,7 +3,7 @@ type CurrentTopPlayer = {
     finishable: boolean;
 };
 
-export const calculateCurrentTop = (points: { [key: string]: number }, continuePoint: number)  => {
+export const calculateCurrentTop = (points: { [key: string]: number }, continuePoint: number) => {
     let tmpTop = 'east';
     let point = points['east'];
     for (const key in points) {
@@ -44,8 +44,8 @@ export const simulateTsumo = (
             else tmpPoints[key] = points[key] - koPoint - 100 * homba;
         }
     }
-    const currentTop =  calculateCurrentTop(tmpPoints, continuePoint);
-    if(currentTop.finishable) return currentTop.name;
+    const currentTop = calculateCurrentTop(tmpPoints, continuePoint);
+    if (currentTop.finishable) return currentTop.name;
     else return "none";
 };
 
@@ -66,6 +66,8 @@ export const calculateTsumoCondition = (
             return '2飜(1000オール)';
         if (simulateTsumo(isOya, points, selfName, homba, 0, 2000, sharedPoint, continuePoint) === selfName)
             return '3飜(2000オール)';
+        if (simulateTsumo(isOya, points, selfName, homba, 0, 2600, sharedPoint, continuePoint) === selfName)
+            return 'ピンフ4飜(2600オール)';
         if (simulateTsumo(isOya, points, selfName, homba, 0, 4000, sharedPoint, continuePoint) === selfName)
             return '満貫(4000オール)';
         if (simulateTsumo(isOya, points, selfName, homba, 0, 6000, sharedPoint, continuePoint) === selfName)
@@ -81,10 +83,14 @@ export const calculateTsumoCondition = (
     } else {
         if (simulateTsumo(isOya, points, selfName, homba, 500, 300, sharedPoint, continuePoint) === selfName)
             return 'アガリ(300-500)';
+        if (simulateTsumo(isOya, points, selfName, homba, 700, 400, sharedPoint, continuePoint) === selfName)
+            return 'ピンフツモ(400-700)';
         if (simulateTsumo(isOya, points, selfName, homba, 1000, 500, sharedPoint, continuePoint) === selfName)
             return '2飜(500-1000)';
         if (simulateTsumo(isOya, points, selfName, homba, 2000, 1000, sharedPoint, continuePoint) === selfName)
             return '3飜(1000-2000)';
+        if (simulateTsumo(isOya, points, selfName, homba, 2600, 1300, sharedPoint, continuePoint) === selfName)
+            return 'ピンフ4飜(1300-2600)';
         if (simulateTsumo(isOya, points, selfName, homba, 4000, 2000, sharedPoint, continuePoint) === selfName)
             return '満貫(2000-4000)';
         if (simulateTsumo(isOya, points, selfName, homba, 6000, 3000, sharedPoint, continuePoint) === selfName)
