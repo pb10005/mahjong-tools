@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { SlideToggle } from '@skeletonlabs/skeleton';
-	import { calculateCurrentTop, calculateTsumoCondition } from '$lib/condition';
+	import { calculateCurrentTop, calculateTsumoCondition, calculateRonCondition } from '$lib/condition';
 
 	let isHanchan = true;
 	let continuePoint = 30000;
@@ -22,18 +22,6 @@
 	};
 
 
-	const calculateRonCondition = (isOya: boolean) => {
-		/*
-			'アガリ(1500)',
-			'2飜(2900)',
-			'3飜(5800)',
-			'満貫(12000)',
-			'跳満(18000)',
-			'倍満(24000)',
-			'三倍満(36000)',
-			'役満(48000)'
-		*/
-	};
 
 	$: sharedPoint = 100000 - points.east - points.south - points.west - points.north;
 	$: currentTop = nameMap[calculateCurrentTop(points, continuePoint).name];
@@ -42,6 +30,11 @@
 	$: southCondition = calculateTsumoCondition(false, 'south', points, continuePoint, sharedPoint, homba);
 	$: westCondition = calculateTsumoCondition(false, 'west', points, continuePoint, sharedPoint, homba);
 	$: northCondition = calculateTsumoCondition(false, 'north', points, continuePoint, sharedPoint, homba);
+
+	$: eastRonCondition = calculateRonCondition(true, 'east', points, continuePoint, sharedPoint, homba);
+	$: southRonCondition = calculateRonCondition(false, 'south', points, continuePoint, sharedPoint, homba);
+	$: westRonCondition = calculateRonCondition(false, 'west', points, continuePoint, sharedPoint, homba);
+	$: northRonCondition = calculateRonCondition(false, 'north', points, continuePoint, sharedPoint, homba);
 </script>
 
 <div class="grid md:grid-cols-12 w-full">
@@ -104,6 +97,25 @@
 			<p>
 				北家のトップ条件:
 				{northCondition}
+			</p>
+		</div>
+		<div class="card p-4">
+			<h3 class="h3">トップ直撃条件</h3>
+			<p>
+				東家のトップ条件:
+				{eastRonCondition}
+			</p>
+			<p>
+				南家のトップ条件:
+				{southRonCondition}
+			</p>
+			<p>
+				西家のトップ条件:
+				{westRonCondition}
+			</p>
+			<p>
+				北家のトップ条件:
+				{northRonCondition}
 			</p>
 		</div>
 	</div>
