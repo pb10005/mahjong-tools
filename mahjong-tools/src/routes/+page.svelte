@@ -4,7 +4,7 @@
 
 <svelte:head>
 	<title>点数計算</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="description" content="点数を計算します。" />
 </svelte:head>
 
 <section>
