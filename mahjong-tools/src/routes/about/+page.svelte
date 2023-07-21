@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>About</title>
+	<title>オーラス条件確認</title>
 	<meta name="description" content="About this app" />
 </svelte:head>
 

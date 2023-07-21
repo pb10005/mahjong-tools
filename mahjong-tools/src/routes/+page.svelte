@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>点数計算</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
