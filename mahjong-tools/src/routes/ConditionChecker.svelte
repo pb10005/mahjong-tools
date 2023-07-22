@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { SlideToggle } from '@skeletonlabs/skeleton';
-	import { calculateCurrentTop, calculateTsumoCondition, calculateRonCondition } from '$lib/condition';
+	import {
+		calculateCurrentTop,
+		calculateTsumoCondition,
+		calculateRonCondition
+	} from '$lib/condition';
 
 	let isHanchan = true;
 	let continuePoint = 30000;
@@ -21,20 +25,74 @@
 		north: '北家'
 	};
 
-
-
 	$: sharedPoint = 100000 - points.east - points.south - points.west - points.north;
 	$: currentTop = nameMap[calculateCurrentTop(points, continuePoint).name];
 
-	$: eastCondition = calculateTsumoCondition(true, 'east', points, continuePoint, sharedPoint, homba);
-	$: southCondition = calculateTsumoCondition(false, 'south', points, continuePoint, sharedPoint, homba);
-	$: westCondition = calculateTsumoCondition(false, 'west', points, continuePoint, sharedPoint, homba);
-	$: northCondition = calculateTsumoCondition(false, 'north', points, continuePoint, sharedPoint, homba);
+	$: eastCondition = calculateTsumoCondition(
+		true,
+		'east',
+		points,
+		continuePoint,
+		sharedPoint,
+		homba
+	);
+	$: southCondition = calculateTsumoCondition(
+		false,
+		'south',
+		points,
+		continuePoint,
+		sharedPoint,
+		homba
+	);
+	$: westCondition = calculateTsumoCondition(
+		false,
+		'west',
+		points,
+		continuePoint,
+		sharedPoint,
+		homba
+	);
+	$: northCondition = calculateTsumoCondition(
+		false,
+		'north',
+		points,
+		continuePoint,
+		sharedPoint,
+		homba
+	);
 
-	$: eastRonCondition = calculateRonCondition(true, 'east', points, continuePoint, sharedPoint, homba);
-	$: southRonCondition = calculateRonCondition(false, 'south', points, continuePoint, sharedPoint, homba);
-	$: westRonCondition = calculateRonCondition(false, 'west', points, continuePoint, sharedPoint, homba);
-	$: northRonCondition = calculateRonCondition(false, 'north', points, continuePoint, sharedPoint, homba);
+	$: eastRonCondition = calculateRonCondition(
+		true,
+		'east',
+		points,
+		continuePoint,
+		sharedPoint,
+		homba
+	);
+	$: southRonCondition = calculateRonCondition(
+		false,
+		'south',
+		points,
+		continuePoint,
+		sharedPoint,
+		homba
+	);
+	$: westRonCondition = calculateRonCondition(
+		false,
+		'west',
+		points,
+		continuePoint,
+		sharedPoint,
+		homba
+	);
+	$: northRonCondition = calculateRonCondition(
+		false,
+		'north',
+		points,
+		continuePoint,
+		sharedPoint,
+		homba
+	);
 </script>
 
 <div class="grid md:grid-cols-12 w-full">
