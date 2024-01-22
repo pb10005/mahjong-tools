@@ -138,7 +138,7 @@ export const getScore = (
 	} else {
 		// 子の場合
 		if (isTsumo) {
-			if (isYakuman) return '800-16000';
+			if (isYakuman) return '8000-16000';
 			if (yaku === 1) {
 				if (fu === 30) return '300-500';
 				if (fu === 40) return '400-700';
