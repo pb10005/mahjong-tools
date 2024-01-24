@@ -17,7 +17,7 @@
         {/each}
     </div>
     <label class="label">
-        <span>手牌を略記法で入力</span>
+        <span>手牌をmpsz表記で入力</span>
         <input class="input" type="text" placeholder="手牌" bind:value={handString} />
     </label>
 </div>
