@@ -20,9 +20,5 @@
 		</svelte:fragment>
 
 		<slot />
-
-		<svelte:fragment slot="pageFooter">
-			<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-		</svelte:fragment>
 	</AppShell>
 </div>

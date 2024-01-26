@@ -115,7 +115,7 @@
 			>
 		</div>
 		<div class="card p-4">
-			<h3 class="h3">役を入力</h3>
+			<h3 class="h3">役を選択</h3>
 			<div>
 				<SlideToggle name="oya" type="checkbox" size="sm" bind:checked={isOya}>親</SlideToggle>
 			</div>

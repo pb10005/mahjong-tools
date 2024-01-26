@@ -99,19 +99,20 @@
 	<div class="md:col-start-3 md:col-span-8 space-y-2">
 		<h2 class="h2">オーラス条件確認</h2>
 		<div class="card p-4 text-token space-y-4">
-			<div>
-				<p>ルール</p>
-				<SlideToggle name="isHanchan" size="sm" bind:checked={isHanchan}>半荘戦</SlideToggle>
-				<label class="label">
-					<span>{`${isHanchan ? '西' : '南'}入点数`}</span>
-					<input
-						class="input"
-						type="number"
-						placeholder={`${isHanchan ? '西' : '南'}入点数`}
-						bind:value={continuePoint}
-					/>
-				</label>
-			</div>
+			<h3 class="h3">ルール</h3>
+			<SlideToggle name="isHanchan" size="sm" bind:checked={isHanchan}>半荘戦</SlideToggle>
+			<label class="label">
+				<span>{`${isHanchan ? '西' : '南'}入点数`}</span>
+				<input
+					class="input"
+					type="number"
+					placeholder={`${isHanchan ? '西' : '南'}入点数`}
+					bind:value={continuePoint}
+				/>
+			</label>
+		</div>
+		<div class="card p-4 text-token space-y-4">
+			<h3 class="h3">点数を入力</h3>
 			<label class="label">
 				<span>本場</span>
 				<input class="input" type="number" placeholder="本場" min="0" bind:value={homba} />
@@ -138,43 +139,45 @@
 			</label>
 			<p>現在のトップ: {currentTop}</p>
 		</div>
-		<div class="card p-4">
-			<h3 class="h3">ツモ条件</h3>
-			<p>
-				東家のトップ条件:
-				{eastCondition}
-			</p>
-			<p>
-				南家のトップ条件:
-				{southCondition}
-			</p>
-			<p>
-				西家のトップ条件:
-				{westCondition}
-			</p>
-			<p>
-				北家のトップ条件:
-				{northCondition}
-			</p>
-		</div>
-		<div class="card p-4">
-			<h3 class="h3">トップ直撃条件</h3>
-			<p>
-				東家のトップ条件:
-				{eastRonCondition}
-			</p>
-			<p>
-				南家のトップ条件:
-				{southRonCondition}
-			</p>
-			<p>
-				西家のトップ条件:
-				{westRonCondition}
-			</p>
-			<p>
-				北家のトップ条件:
-				{northRonCondition}
-			</p>
+		<div class="grid md:grid-cols-12 gap-1">
+			<div class="card p-4 md:col-span-6">
+				<h3 class="h3">ツモ条件</h3>
+				<p>
+					東家のトップ条件:
+					{eastCondition}
+				</p>
+				<p>
+					南家のトップ条件:
+					{southCondition}
+				</p>
+				<p>
+					西家のトップ条件:
+					{westCondition}
+				</p>
+				<p>
+					北家のトップ条件:
+					{northCondition}
+				</p>
+			</div>
+			<div class="card p-4 md:col-span-6">
+				<h3 class="h3">トップ直撃条件</h3>
+				<p>
+					東家のトップ条件:
+					{eastRonCondition}
+				</p>
+				<p>
+					南家のトップ条件:
+					{southRonCondition}
+				</p>
+				<p>
+					西家のトップ条件:
+					{westRonCondition}
+				</p>
+				<p>
+					北家のトップ条件:
+					{northRonCondition}
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
