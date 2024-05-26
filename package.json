@@ -1,0 +1,7 @@
+{
+	"dependencies": {
+		"trpc-sveltekit": "^3.6.1",
+		"@trpc/server": "^10.45.2",
+		"@trpc/client": "^10.45.2"
+	}
+}
